@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
-import { Input } from "antd";
+import { Form, Input } from "antd";
 
 interface Location {
   address: string;
@@ -41,19 +41,19 @@ const GoogleMapsAutocompleteExample: React.FC = () => {
           }
         />
       </Autocomplete>
-      <div>
-        <label htmlFor="latitude">Latitude:</label>
+
+      <Form.Item label="Latitude">
         <Input id="latitude" type="number" value={location.latitude} readOnly />
-      </div>
-      <div>
-        <label htmlFor="longitude">Longitude:</label>
+      </Form.Item>
+
+      <Form.Item label="Longitude">
         <Input
           id="longitude"
           type="number"
           value={location.longitude}
           readOnly
         />
-      </div>
+      </Form.Item>
     </LoadScript>
   );
 };
