@@ -8,6 +8,17 @@ interface Location {
   longitude: number;
 }
 
+type Libraries =
+  | "places"
+  | "drawing"
+  | "geometry"
+  | "localContext"
+  | "visualization";
+
+// const libraries = ["places"];
+
+const places: Libraries[] = ["places"];
+
 const GoogleMapsAutocompleteExample: React.FC = () => {
   const [location, setLocation] = useState<Location>({
     address: "",
@@ -25,7 +36,10 @@ const GoogleMapsAutocompleteExample: React.FC = () => {
   };
 
   return (
-    <LoadScript googleMapsApiKey="YOUR_GOOGLE_API_KEY" libraries={["places"]}>
+    <LoadScript
+      googleMapsApiKey="AIzaSyD6HE46ni9z8LZMdOZT3W0_rQeuLgBNi4o"
+      libraries={places}
+    >
       <Autocomplete
         onLoad={(autocomplete) => setAutocomplete(autocomplete)}
         onPlaceChanged={() =>
