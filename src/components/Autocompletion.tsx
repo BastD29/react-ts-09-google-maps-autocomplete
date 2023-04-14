@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import { Form, Input } from "antd";
+import { useForm } from "antd/es/form/Form";
 
 interface Location {
   address: string;
@@ -20,6 +21,8 @@ type Libraries =
 const places: Libraries[] = ["places"];
 
 const GoogleMapsAutocompleteExample: React.FC = () => {
+  const [form] = useForm();
+
   const [location, setLocation] = useState<Location>({
     address: "",
     latitude: 0,
@@ -28,18 +31,21 @@ const GoogleMapsAutocompleteExample: React.FC = () => {
   const [autocomplete, setAutocomplete] =
     useState<google.maps.places.Autocomplete>();
 
+  const [placeSelected, setPlaceSelected] = useState(false);
+
   const handlePlaceSelect = (place: google.maps.places.PlaceResult) => {
     const formattedAddress = place.formatted_address ?? "";
     const latitude = place.geometry?.location?.lat() ?? 0;
     const longitude = place.geometry?.location?.lng() ?? 0;
     setLocation({ address: formattedAddress, latitude, longitude });
+    form.setFieldsValue({
+      address: formattedAddress,
+    });
+    setPlaceSelected(true);
   };
 
   return (
-    <LoadScript
-      googleMapsApiKey="AIzaSyD6HE46ni9z8LZMdOZT3W0_rQeuLgBNi4o"
-      libraries={places}
-    >
+    <LoadScript googleMapsApiKey="YOUR_GOOGLE_API_KEY" libraries={places}>
       <Autocomplete
         onLoad={(autocomplete) => setAutocomplete(autocomplete)}
         onPlaceChanged={() =>
